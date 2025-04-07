@@ -1,0 +1,99 @@
+import random  
+
+BOLD = "\033[1m"
+CYAN = "\033[36m"
+RESET = "\033[0m"
+YELLOW = "\033[33m"
+GREEN = "\033[32m"
+RED = "\033[31m"
+MAGENTA = "\033[35m"
+DARK_BLUE = "\033[38;5;24m"
+LAVENDER = "\033[38;2;230;230;250m"
+
+
+word = {
+    'Animals': {
+        'Easy': ['bat', 'cat', 'dog', 'fox', 'hen', 'yak', 'cow', 'ant', 'bee', 'elk', 'rat', 'fly', 'eel', 'pig', 'ape', 'lion', 'wolf', 'fish', 'frog', 'camel', 'bear', 'owl', 'duck', 'snail', 'swan'],
+        'Medium': ['giraffe', 'monkey', 'zebra', 'tiger', 'dolphin', 'gorillas', 'cheetah', 'leopard', 'shark', 'sloth', 'hamster', 'hyena', 'turtle', 'deer', 'sheep', 'skunk', 'squirrel', 'ostrich', 'rabbit', 'otter'],
+        'Hard': ['rhinoceros', 'kangaroo', 'elephant', 'penguin', 'crocodile', 'polar bear', 'chimpanzee', 'chipmunk', 'porcupine', 'raccoon', 'hedgehog', 'red panda', 'sea horse', 'blue whale', 'eagle', 'king cobra', 'anteater', 'komodo dragon', 'meerkat']
+    },
+    'Countries': {
+        'Easy': ['nepal', 'chile', 'japan', 'india', 'china', 'korea', 'peru', 'panama', 'laos', 'libya', 'kuwait', 'jordan', 'yemen', 'italy', 'iran', 'iraq'],
+        'Medium': ['germany', 'canada', 'france', 'brazil', 'albania', 'angola', 'mexico', 'morocco', 'mongolia', 'poland', 'russia', 'egypt', 'singapore', 'nigeria', 'lebanon'],
+        'Hard': ['australia', 'argentina', 'philippines', 'kazakhstan', 'bangladesh', 'afghanistan', 'madagascar', 'colombia', 'finland', 'somalia', 'zimbabwe']
+    },
+    'Sports': {
+        'Easy': ['golf', 'tennis', 'hockey', 'pool', 'darts', 'soccer', 'rugby', 'boxing', 'chess', 'diving', 'wrestling'],
+        'Medium': ['football', 'baseball', 'cycling', 'running', 'volleyball', 'basketball', 'badminton', 'swimming', 'skiing', 'bowling', 'archery', 'cricket', 'rowing', 'dodgeball'],
+        'Hard': ['table tennis', 'roller skating', 'weightlifting', 'triathlon', 'surfing', 'karate', 'horse racing', 'snowboarding', 'skateboarding', 'gymnastics', 'taekwondo', 'kick boxing', 'shooting', 'paragliding']
+    },
+}
+
+
+print(f"{CYAN}{BOLD}"
+      """
+ 
+██╗    ██╗ ██████╗ ██████╗ ██████╗     ███████╗██████╗  █████╗ ███╗   ███╗██████╗ ██╗     ███████╗
+██║    ██║██╔═══██╗██╔══██╗██╔══██╗    ██╔════╝██╔══██╗██╔══██╗████╗ ████║██╔══██╗██║     ██╔════╝
+██║ █╗ ██║██║   ██║██████╔╝██║  ██║    ███████╗██████╔╝███████║██╔████╔██║██████╔╝██║     █████╗  
+██║███╗██║██║   ██║██╔══██╗██║  ██║    ╚════██║██╔══██╗██╔══██║██║╚██╔╝██║██╔══██╗██║     ██╔══╝  
+╚███╔███╔╝╚██████╔╝██║  ██║██████╔╝    ███████║██║  ██║██║  ██║██║ ╚═╝ ██║██████╔╝███████╗███████╗
+ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═════╝ ╚══════╝╚══════╝
+                                                                                                  
+""" + RESET)
+
+
+streak = 0
+
+
+while True:
+ 
+    print(f"{YELLOW}{BOLD}Categories: Animals, Countries, Sports{RESET}")
+    category = input(f"{BOLD}Choose a category: {RESET}").capitalize()
+
+   
+    if category not in word:
+        print(f"{MAGENTA}{BOLD}Invalid category. Enter a specific category{RESET}")
+        continue
+
+
+    while True:
+        print(f"{DARK_BLUE}{BOLD}Difficulty Levels: Easy, Medium, Hard{RESET}")
+        level = input(f"{BOLD}Choose a difficulty level: {RESET}").capitalize()
+
+   
+        if level in ['Easy', 'Medium', 'Hard']:
+            break
+        else:
+            print(f"{MAGENTA}{BOLD}Invalid Difficulty. Enter a specific level{RESET}")
+
+
+    word_list = word[category][level]
+
+    selected_word = random.choice(word_list)
+    word_scrambled = list(selected_word)
+    random.shuffle(word_scrambled)
+    scrambled_word = ''.join(word_scrambled)
+
+
+    print(f"{LAVENDER}{BOLD}Scrambled word: {scrambled_word}{RESET}")
+
+ 
+    guess = input(f"{BOLD}Your guess 🤔🤔: {RESET}")
+
+    
+    if guess.lower() == selected_word:
+        streak += 1  
+        print(f"{GREEN}{BOLD}🎉 Correct! 🎉 Your current streak is {streak}.{RESET}")
+    else:
+    
+        print(f"{RED}{BOLD} ❌ Wrong! ❌ The correct word was '{selected_word}'. Your streak is over.{RESET}")
+        print(f"{BOLD}Final streak🔥: {streak}")
+        streak = 0
+
+  
+    continue_playing = input(f"{MAGENTA}{BOLD}Do you want to continue playing? (yes/no): {RESET}").lower()
+    if continue_playing != 'yes':
+     
+        print(f"{MAGENTA}{BOLD}THANK YOU FOR PLAYING THE GAME!!{RESET}{DARK_BLUE}{BOLD} Your final streak is: {streak}{RESET}")
+        break
